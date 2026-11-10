@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electricity Bill Calculator | Smart Power Tariff Estimator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header / Navigation Bar -->
+  <header class="header">
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="logo-icon">&#9889;</span>
+        <span class="logo-title">PowerCalc</span>
+        <span class="logo-sub">EB Calculator</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#tariffs" class="nav-link">Tariff Slabs</a>
+        <a href="#calculator" class="nav-link">Calculator</a>
+        <a href="#history" class="nav-link">History</a>
+        <a href="#about" class="nav-link">About &amp; Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="container hero-content">
+      <div class="hero-badge">Academic Mini Project &bull; Dept of IT</div>
+      <h1 class="hero-title">Smart Electricity Bill Calculator</h1>
+      <p class="hero-subtitle">
+        Calculate your electricity consumption, estimate slab-wise charges accurately,
+        and manage your billing records with ease. Designed with client-side progressive tariff computation.
+      </p>
+      <div class="hero-actions">
+        <a href="#calculator" class="btn btn-primary">Start Calculation &darr;</a>
+        <a href="#tariffs" class="btn btn-secondary">View Tariff Rates</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tariff Rates Section -->
+  <section id="tariffs" class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Tariff Slabs</span>
+        <h2 class="section-title">Illustrative Progressive Slab Rates</h2>
+        <p class="section-desc">Charges are calculated progressively across consumption slabs as defined below.</p>
+      </div>
+
+      <div class="tariff-grid">
+        <div class="tariff-card">
+          <div class="tariff-slab">Slab 1</div>
+          <div class="tariff-range">0 – 100 Units</div>
+          <div class="tariff-rate">&#8377;1.50 <span>/ unit</span></div>
+          <p class="tariff-note">First 100 units of energy consumed</p>
+        </div>
+        <div class="tariff-card">
+          <div class="tariff-slab">Slab 2</div>
+          <div class="tariff-range">101 – 200 Units</div>
+          <div class="tariff-rate">&#8377;2.50 <span>/ unit</span></div>
+          <p class="tariff-note">Next 100 units consumed (101 to 200)</p>
+        </div>
+        <div class="tariff-card">
+          <div class="tariff-slab">Slab 3</div>
+          <div class="tariff-range">201 – 300 Units</div>
+          <div class="tariff-rate">&#8377;4.00 <span>/ unit</span></div>
+          <p class="tariff-note">Next 100 units consumed (201 to 300)</p>
+        </div>
+        <div class="tariff-card highlight">
+          <div class="tariff-slab">Slab 4</div>
+          <div class="tariff-range">Above 300 Units</div>
+          <div class="tariff-rate">&#8377;6.00 <span>/ unit</span></div>
+          <p class="tariff-note">All remaining units exceeding 300</p>
+        </div>
+      </div>
+      <p class="tariff-disclaimer">
+        * Note: These are illustrative project tariff rates for academic demonstration. Fixed meter rent and government taxes are excluded.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calculator Section -->
+  <section id="calculator" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Meter Reading &amp; Calculation</span>
+        <h2 class="section-title">Electricity Bill Calculation Form</h2>
+        <p class="section-desc">Enter your customer information and meter readings to generate your progressive bill breakdown.</p>
+      </div>
+
+      <div class="calc-wrapper">
+        <!-- Input Form Card -->
+        <div class="calc-card">
+          <h3 class="card-title">Consumer &amp; Meter Input</h3>
+          <form id="ebForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="consumerName">Consumer Name <span class="required">*</span></label>
+                <input type="text" id="consumerName" placeholder="e.g. John Doe" required>
+                <span class="error-msg" id="nameError"></span>
+              </div>
+              <div class="form-group">
+                <label for="consumerNumber">Consumer ID / Service No <span class="required">*</span></label>
+                <input type="text" id="consumerNumber" placeholder="e.g. EB-2026-1045" required>
+                <span class="error-msg" id="numberError"></span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="connectionType">Connection Type</label>
+                <select id="connectionType">
+                  <option value="Domestic / Residential">Domestic / Residential</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Small Industry">Small Industry</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="consumerAddress">Service Address / Area</label>
+                <input type="text" id="consumerAddress" placeholder="e.g. Trichy, Tamil Nadu">
+              </div>
+            </div>
+
+            <div class="form-divider"><span>Meter Readings (kWh)</span></div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prevReading">Previous Meter Reading (kWh) <span class="required">*</span></label>
+                <input type="number" id="prevReading" min="0" step="1" placeholder="e.g. 1200" required>
+                <span class="error-msg" id="prevError"></span>
+              </div>
+              <div class="form-group">
+                <label for="currReading">Current Meter Reading (kWh) <span class="required">*</span></label>
+                <input type="number" id="currReading" min="0" step="1" placeholder="e.g. 1450" required>
+                <span class="error-msg" id="currError"></span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btnCalculate">Calculate Bill</button>
+              <button type="button" class="btn btn-secondary" id="btnReset">Reset</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Bill Result Card -->
+        <div class="calc-card result-card" id="resultContainer" style="display: none;">
+          <div class="result-header">
+            <h3>Electricity Bill Summary</h3>
+            <span class="badge badge-success">Generated</span>
+          </div>
+
+          <div class="bill-details" id="printableBill">
+            <div class="bill-title-bar">
+              <h4>POWER DISTRIBUTION CO. &bull; ESTIMATED INVOICE</h4>
+              <p class="bill-date" id="billDate">Date: --/--/----</p>
+            </div>
+
+            <div class="bill-info-grid">
+              <div><strong>Consumer Name:</strong> <span id="resName">--</span></div>
+              <div><strong>Consumer ID:</strong> <span id="resNumber">--</span></div>
+              <div><strong>Tariff Type:</strong> <span id="resType">--</span></div>
+              <div><strong>Address:</strong> <span id="resAddress">--</span></div>
+              <div><strong>Previous Reading:</strong> <span id="resPrev">--</span> kWh</div>
+              <div><strong>Current Reading:</strong> <span id="resCurr">--</span> kWh</div>
+            </div>
+
+            <div class="units-highlight">
+              <span>Total Units Consumed:</span>
+              <strong id="resUnits">0 Units</strong>
+            </div>
+
+            <h5 class="breakdown-title">Progressive Slab Breakdown</h5>
+            <table class="table breakdown-table">
+              <thead>
+                <tr>
+                  <th>Slab Range</th>
+                  <th>Units</th>
+                  <th>Rate (&#8377;)</th>
+                  <th>Amount (&#8377;)</th>
+                </tr>
+              </thead>
+              <tbody id="slabBreakdownBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+
+            <div class="bill-totals">
+              <div class="total-row">
+                <span>Energy Charges:</span>
+                <span id="resEnergyCharges">&#8377;0.00</span>
+              </div>
+              <div class="total-row">
+                <span>Fixed / Meter Rent:</span>
+                <span>&#8377;0.00</span>
+              </div>
+              <div class="total-row grand-total">
+                <span>Total Estimated Bill:</span>
+                <span id="resGrandTotal">&#8377;0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <button class="btn btn-success" id="btnSaveHistory">&#128190; Save to History</button>
+            <button class="btn btn-info" id="btnPrintBill">&#128424; Print Bill</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculation History Section -->
+  <section id="history" class="section bg-light">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Local Storage</span>
+        <h2 class="section-title">Saved Calculation History</h2>
+        <p class="section-desc">Manage past electricity bill calculations stored in your browser LocalStorage.</p>
+      </div>
+
+      <div class="history-controls">
+        <button class="btn btn-outline-danger" id="btnClearHistory">Clear All History</button>
+        <span class="history-count" id="historyCount">0 Records Found</span>
+      </div>
+
+      <div class="history-table-wrapper">
+        <table class="table history-table" id="historyTable">
+          <thead>
+            <tr>
+              <th>Date &amp; Time</th>
+              <th>Consumer ID</th>
+              <th>Consumer Name</th>
+              <th>Readings (Prev &rarr; Curr)</th>
+              <th>Units</th>
+              <th>Total Bill</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+        <div id="noHistoryMsg" class="empty-state">
+          <p>No calculation history saved yet. Calculate a bill and click "Save to History".</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About and Contact Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Project Overview</span>
+        <h2 class="section-title">About the Project &amp; Team</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Project Objective</h3>
+          <p>
+            The Electricity Bill Calculator is developed as an academic mini-project in Web Technology.
+            It provides a simple, accurate, and interactive client-side tool to calculate power charges
+            based on meter readings using a multi-tier progressive slab rate system.
+          </p>
+          <ul class="about-features">
+            <li>&#10004; Accurate progressive slab calculation formula</li>
+            <li>&#10004; Instant input validation &amp; error feedback</li>
+            <li>&#10004; Client-side storage via Browser LocalStorage</li>
+            <li>&#10004; Clean, responsive print-ready bill summary</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <h3>Project Team Details</h3>
+          <table class="team-table">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Student Name</th>
+                <th>Register No.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><strong>SHAPTHAGIRI G</strong></td>
+                <td>814725205105</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><strong>RENGESH M</strong></td>
+                <td>814725205088</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><strong>SAI SARAN N</strong></td>
+                <td>814725205096</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="mentor-details">
+            <p><strong>Department:</strong> Department of Information Technology (2nd Year)</p>
+            <p><strong>Institution:</strong> SRM TRP Engineering College, Tiruchirappalli</p>
+            <p><strong>Under the Guidance of:</strong> Mrs. C. Manonmani (Faculty In-charge)</p>
+            <p><strong>Academic Year:</strong> 2026–2027 (ODD Semester)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026–2027 Electricity Bill Calculator &bull; SRM TRP Engineering College &bull; Department of Information Technology</p>
+      <p class="footer-sub">Jointly developed by Shapthagiri G, Rengesh M, and Sai Saran N.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
